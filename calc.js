@@ -2,13 +2,31 @@ $(function() {
   
 
   $("#numbers").submit(function(e) {
-    var num1 = $("#number1").val();
-    var num2 = $("#number2").val();
+    var operation = $("#operation").val();
 
-    $("#resultsA").append(num1+ " + " +num2 + "</br>");
-    $("#resultsB").append(parseInt(num1) + parseInt(num2) + "</br>");
-    $("#number1").val("");
-    $("#number2").val("");
+    
+    var result = 0;
+    var error = false;
+
+    try {
+       result = eval(operation);
+    } catch (e) {
+       // statements to handle EvalError exceptions
+       error = true;
+       console.log("error: " + e);
+       alert("you must enter a number");
+       
+    } finally {
+      $("#operation").val("");
+    }
+
+    if( error === false ) {
+      $("#resultsA").append(operation + "</br>");
+      $("#resultsB").append(result);
+      $("#resultsB").append("</br>");
+    }
+ 
+    
     e.preventDefault();
 
     
